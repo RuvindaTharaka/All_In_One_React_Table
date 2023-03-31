@@ -17,3 +17,11 @@ table {
     background-color: #1f2020;
     color: white;
   }
+
+  .btn {
+    background-color: rgb(73, 135, 73);
+    color: white;
+    padding: 5px 20px 5px 20px;
+    margin: 10px;
+    border: 1px solid white;
+  }

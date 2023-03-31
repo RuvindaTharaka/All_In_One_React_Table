@@ -6,8 +6,21 @@ import { AiFillCaretUp } from "react-icons/ai";
 import { GlobalFilter } from './components/GlobalFilter';
 import { ColumnFilter } from './components/ColumnFilter';
 import { Checkbox } from './components/Checkbox';
+import ExportToExcel from 'react-html-table-to-excel';
+import jsPDF from "jspdf";
+import autoTable from 'jspdf-autotable';
 
 export const Table = () => {
+
+  const doc = new jsPDF();
+  autoTable(doc, { html: '#tbl' })
+  const downloadTable = () => {
+    const doc = new jsPDF();
+    autoTable(doc, { html: '#tbl' });
+    doc.save('table.pdf')
+  }
+
+
   const data = React.useMemo(
     () => [{"id":1,"first_name":"Dulsea","last_name":"Gregolotti","age":1,"address":"2196 Erie Lane","country":"Greece","city":"Filiátes","date_time":"2020-05-23T16:25:05Z","phone":"288 400 1034"},
     {"id":2,"first_name":"Karyn","last_name":"Bulward","age":2,"address":"91367 Tennessee Plaza","country":"Serbia","city":"Zvezdara","date_time":"2022-09-24T04:40:37Z","phone":"534 683 7356"},
@@ -611,8 +624,10 @@ export const Table = () => {
             ))
           }
       </div>
+      <ExportToExcel table="tbl" filename ="excelFile" sheet="sheet_1" buttonText="DOWNLOAD EXCEL" className="btn"/>
+      <button onClick={downloadTable} className='btn'>DOWNLOAD PDF</button>
     </div>
-    <table {...getTableProps()}>
+    <table {...getTableProps()} id="tbl">
       <thead>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
